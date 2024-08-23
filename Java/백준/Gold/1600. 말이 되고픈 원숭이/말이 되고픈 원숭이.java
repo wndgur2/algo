@@ -34,7 +34,7 @@ public class Main {
 		dp[0][0][0] = 0;
 		visited[0][0][0] = true;
 		queue.add(new Node(0, 0, 0, 0));
-		bfsVisit();
+		bfsDP();
 		System.out.println(res==40001?-1:res);
 	}
 	
@@ -81,7 +81,7 @@ public class Main {
 				if(ny<0 || nx<0 || ny>=H || nx>=W) continue;
 				if(wall[ny][nx]) continue;
 				
-				if(dp[ny][nx][k] < depth+1) continue;
+				if(dp[ny][nx][k] <= depth+1) continue;
 				dp[ny][nx][k] = depth+1;
 				
 				queue.add(new Node(ny, nx, k, depth+1));
@@ -95,7 +95,7 @@ public class Main {
 				if(ny<0 || nx<0 || ny>=H || nx>=W) continue;
 				if(wall[ny][nx]) continue;
 				
-				if(dp[ny][nx][k+1] < depth+1) continue;
+				if(dp[ny][nx][k+1] <= depth+1) continue;
 				dp[ny][nx][k+1] = depth+1;
 				
 				queue.add(new Node(ny, nx, k+1, depth+1));
