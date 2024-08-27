@@ -7,6 +7,7 @@ import java.io.*;
 public class Main {
 	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 	public static void main(String[] args) throws IOException{
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		
 		int N = Integer.parseInt(st.nextToken());
@@ -44,7 +45,7 @@ public class Main {
 		}
 		
 		for (int i = 0; i < N; i++) 
-			System.out.print(topology[i] + " ");
-		System.out.println();
+			sb.append(topology[i]).append(" ");
+		System.out.println(sb.toString());
 	}
 }
