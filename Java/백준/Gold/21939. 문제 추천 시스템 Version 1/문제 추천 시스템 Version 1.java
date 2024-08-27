@@ -42,7 +42,7 @@ public class Main {
 			probs.add(prob);
 			numToProb.put(number, prob);
 		}
-		
+		StringBuilder sb = new StringBuilder();
 		int M = Integer.parseInt(br.readLine());
 		for (int i = 0; i < M; i++) {
 			StringTokenizer st = new StringTokenizer(br.readLine());
@@ -56,8 +56,9 @@ public class Main {
 				break;
 			case "recommend":
 				int x = Integer.parseInt(st.nextToken());
-				if(x==1) System.out.println(probs.first());
-				else System.out.println(probs.last());
+				if(x==1) sb.append(probs.first().toString());
+				else sb.append(probs.last().toString());
+				sb.append('\n');
 				break;
 			case "solved":
 				number = Integer.parseInt(st.nextToken());
@@ -65,6 +66,8 @@ public class Main {
 				break;
 			}
 		}
+		
+		System.out.println(sb.toString());
 	}
 
 }
