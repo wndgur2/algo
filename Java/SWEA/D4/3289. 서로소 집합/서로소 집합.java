@@ -6,6 +6,24 @@ import java.util.StringTokenizer;
 public class Solution {
 	static int[] parents;
 	
+	public static void union(int a, int b) {
+		int r1 = findSet(a);
+		int r2 = findSet(b);
+		if(r1==r2) return;
+		parents[r2] = r1;
+	}
+	
+	public static int find(int a, int b) {
+		int r1 = findSet(a);
+		int r2 = findSet(b);
+		return r1==r2?1:0;
+	}
+	
+	public static int findSet(int a) {
+		if(parents[a] == a) return a;
+		return parents[a] = findSet(parents[a]);
+	}
+	
 	public static void main(String[] args) throws IOException{
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int T = Integer.parseInt(br.readLine());
@@ -37,23 +55,4 @@ public class Solution {
 		}
 		System.out.println(sb.toString());
 	}
-	
-	public static void union(int a, int b) {
-		int r1 = findSet(a);
-		int r2 = findSet(b);
-		if(r1==r2) return;
-		parents[r2] = r1;
-	}
-	
-	public static int find(int a, int b) {
-		int r1 = findSet(a);
-		int r2 = findSet(b);
-		return r1==r2?1:0;
-	}
-	
-	public static int findSet(int a) {
-		if(parents[a] == a) return a;
-		return parents[a] = findSet(parents[a]);
-	}
-
 }
