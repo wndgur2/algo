@@ -4,6 +4,10 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 /*
+ * 
+ * 실행시간 76ms
+ * 메모리 13204kb
+ * 
 4
 0 10 15 20
 5 0 9 10
@@ -38,6 +42,7 @@ public class Main {
 	}
 	
 	public static void permutation(int depth, int cost) {
+		if(cost >= res) return;
 		if(depth == N-1) {
 			int w = edges[numbers[N-2]][numbers[N-1]];
 			if(w==0) return;
