@@ -31,32 +31,29 @@ public class Main {
 		}
 		
 		// 순열
-		permutation(0);
+		permutation(0, 0);
 		
 		System.out.println(res);
 	}
 	
-	public static void permutation(int depth) {
+	public static void permutation(int depth, int cost) {
 		if(depth == N-1) {
-			// numbers 순서 + numbers[0]으로 방문 가능한지
-			int w, temp=0;
-			for (int i = 0; i < N-1; i++) {
-				w = edges[numbers[i]][numbers[i+1]];
-				if(w==0) return;
-				temp+=w;
-			}
-			w = edges[numbers[N-1]][numbers[0]];
+			int w = edges[numbers[N-2]][numbers[N-1]];
 			if(w==0) return;
-			else temp+=w;
+			if(edges[numbers[N-1]][numbers[0]]==0) return;
+			w += edges[numbers[N-1]][numbers[0]];
+			cost+=w;
 			
 			// 가능하다면 비용 비교
-			if(res > temp) res = temp;
+			if(res > cost) res = cost;
 			return;
 		}
 		
 		for (int i = depth; i < N; i++) {
+			if(depth>0 && edges[numbers[depth-1]][numbers[i]]==0) continue;
+			int w = depth==0? 0:cost + edges[numbers[depth-1]][numbers[i]];
 			swap(i, depth);
-			permutation(depth+1);
+			permutation(depth+1, w);
 			swap(i, depth);
 		}
 	}
