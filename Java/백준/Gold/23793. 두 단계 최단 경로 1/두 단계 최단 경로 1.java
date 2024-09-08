@@ -50,7 +50,7 @@ public class Main {
 			visited[cur[0]] = true;
 			if(cur[0]==Y) break;
 			for(int[] next: edges[cur[0]]) {
-				if(dXY[next[0]] <= cur[1] + next[1]) continue;
+				if(visited[next[0]] || dXY[next[0]] <= cur[1] + next[1]) continue;
 				dXY[next[0]] = cur[1] + next[1];
 				q.add(new int[] {next[0], dXY[next[0]]});
 			}
@@ -66,7 +66,7 @@ public class Main {
 			visited[cur[0]] = true;
 			if(cur[0]==Z) break;
 			for(int[] next: edges[cur[0]]) {
-				if(dYZ[next[0]] <= cur[1] + next[1]) continue;
+				if(visited[next[0]] || dYZ[next[0]] <= cur[1] + next[1]) continue;
 				dYZ[next[0]] = cur[1] + next[1];
 				q.add(new int[] {next[0], dYZ[next[0]]});
 			}
@@ -79,6 +79,7 @@ public class Main {
 		
 		// X -> Z (Y를 제외)
 		Arrays.fill(visited, false);
+		visited[Y] = true;
 		q.clear();
 		q.add(new int[] {X, 0});
 		while(!q.isEmpty()) {
@@ -87,8 +88,7 @@ public class Main {
 			visited[cur[0]] = true;
 			if(cur[0]==Z) break;
 			for(int[] next: edges[cur[0]]) {
-				if(next[0] == Y) continue;
-				if(dXZ[next[0]] <= cur[1] + next[1]) continue;
+				if(visited[next[0]] || dXZ[next[0]] <= cur[1] + next[1]) continue;
 				dXZ[next[0]] = cur[1] + next[1];
 				q.add(new int[] {next[0], dXZ[next[0]]});
 			}
