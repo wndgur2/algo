@@ -1,7 +1,6 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.Arrays;
 import java.util.StringTokenizer;
 
 /*
@@ -52,32 +51,26 @@ public class Main{
             if(query==1){ // 수정
                 set(0, N, 1, a-1, b);
             } else{ // query
-                sb.append(getSum(a-1, (int)b)).append('\n');
+                sb.append(get(a-1, (int)b, 0, N, 1)).append('\n');
             }
         }
         System.out.println(sb.toString());
     }
     
-    private static long getSum(int left, int right){
-        return get(left, right, 0, N, 1);
-    }
-
     private static long get(int left, int right, int curLeft, int curRight, int cur) {
         // 범위가 겹치지 않는 경우
         if(left >= curRight || right <= curLeft) return 0;
-        // 리프인 경우
-        if(curLeft +1 == curRight) return segments[cur];
 
         int leftChild = cur*2;
         int rightChild = cur*2+1;
         int mid = (curLeft + curRight + 1) / 2;
 
-        if(left<=curLeft && right >=curRight){ 
-            // left, right가 curLeft, curRight을 포함하는 경우 (inclusive)
+        // left, right가 curLeft, curRight을 포함하는 경우 (inclusive)
+        if(left<=curLeft && right >=curRight)
             return segments[cur];
-        } else{
-            return get(left, right, curLeft, mid, leftChild) + get(left, right, mid, curRight, rightChild);
-        }
+
+        // else
+        return get(left, right, curLeft, mid, leftChild) + get(left, right, mid, curRight, rightChild);
     }
 
     private static void makeTree() {
@@ -89,17 +82,17 @@ public class Main{
     }
 
     private static long set(int l, int r, int cur, int idx, long num) {
-        int leftChild = cur*2;
-        int rightChild = cur*2+1;
-        int mid = (l + r + 1) / 2;
         if(l<=idx && r>idx){ // include
             if(l==r-1){ // leaf node
                 segments[cur] = num;
                 return num;
             } else{
-                segments[cur] = set(l, mid, leftChild, idx, num) + set(mid, r, rightChild, idx, num);
+                int mid = (l + r + 1) / 2;
+                segments[cur] = set(l, mid, cur*2, idx, num) + set(mid, r, cur*2+1, idx, num);
                 return segments[cur];
             }
-        }  else return segments[cur];
+        }
+        // 수정할 idx를 포함하지 않음
+        return segments[cur];
     }
 }
