@@ -24,14 +24,14 @@ function union(a, b){
 let cost = 0
 let parents = new Array(n+1).fill(0).map((v,i)=>i)
 edges.sort((a, b)=> a[2]-b[2]) // 오름차순
-// let connected = 1
+let connected = 1
 for(let i=0; i<e+1; i++){
   const edge = edges[i]
   if(union(edge[0], edge[1])) {
     // console.log(edge)
-    // connected++
+    connected++
     cost+=edge[2]
-    // if(connected==n+1) break
+    if(connected==n+1) break
   }
 }
 const minCost = Math.pow(cost, 2)
@@ -41,13 +41,13 @@ const minCost = Math.pow(cost, 2)
 cost = 0
 parents = new Array(n+1).fill(0).map((v,i)=>i)
 edges.sort((a, b)=> b[2]-a[2]) // 내림차순
-// connected = 1
+connected = 1
 for(let i=0; i<e+1; i++){
   const edge = edges[i]
   if(union(edge[0], edge[1])) {
-    // connected++
+    connected++
     cost+=edge[2]
-    // if(connected==n+1) break
+    if(connected==n+1) break
   }
 }
 const maxCost = Math.pow(cost, 2)
